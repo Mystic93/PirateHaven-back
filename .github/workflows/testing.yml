@@ -1,0 +1,26 @@
+name: Testing
+
+on: push
+
+jobs:
+  test:
+    name: Tests passes
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ⬇ Git checkout
+        uses: actions/checkout@v3
+
+      - name: 💾 Install modules
+        run: npm ci
+
+      - name: 🧪 Testing
+        run: npm test
+
+        env:
+          DEBUG: ${{ secrets.DEBUG }}
+          PORT: ${{ secrets.PORT }}
+          ALLOWED_ORIGIN_DEV: ${{ secrets.ALLOWED_ORIGIN_DEV }}
+          ALLOWED_ORIGIN_PROD: ${{ secrets.ALLOWED_ORIGIN_PROD }}
+          MONGO_DB_CONNECTION: ${{ secrets.MONGO_DB_CONNECTION }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
